@@ -222,3 +222,118 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
                     }
                 }
             }
+
+
+
+uint8_t run = 0;
+uint8_t               TxData[8];
+volatile uint8_t               RxData[8];
+uint8_t enable[6] = {0};
+int32_t speed[6] = {0};
+uint32_t IDs[4] = {0};
+uint16_t pos[6] = {0};
+uint16_t pos_old[6] = {0};
+int32_t turn[6] = {0};
+uint32_t              TxMailbox;
+int32_t ref[6] = {0};
+uint8_t rx_data[1] = {0};
+uint8_t s_pos = 0;
+uint8_t rx_count = 0;
+uint8_t tx_data[40] = {0};
+uint8_t s_flag = 0;
+uint8_t msg_length = 0;
+uint8_t can_send_msg = 0;
+int32_t axis[6] = {0};
+uint8_t buffer[50] = {0};
+uint32_t ID = 0;
+uint8_t rxgnssdata[128];
+uint8_t vel_control = 1;
+int32_t base_turn = 0;
+int32_t base_offset = 0;
+int32_t speed_tmp[6] = {0};
+uint8_t gripper_speed = 5;
+int32_t absolute_pos_for_speed[6] = {0};
+uint8_t enable_pos_for_speed[6] = {0};
+
+double convertDMCtoDecimal(double dmc) {
+	int degrees = (int)(dmc / 100);
+	    double minutes_with_seconds = dmc - (degrees * 100);
+
+	    int minutes = (int)minutes_with_seconds;
+	    double seconds = (minutes_with_seconds - minutes) * 60;
+
+	    return degrees + (minutes / 60.0) + (seconds / 3600.0);
+	}
+
+
+
+/*
+ * 103.18 * gear1 (16.67) = 1720
+ * 143.31 * gear2 (41) = 5875.71
+ * 126.11 * gear3 (50) = 6300.55
+ * 180 * gear4 (28) = 5040
+ * 183.44 * gear5 (22.27) = 4085.22
+ * 360 * gear6 (7.8) = 2808
+ */
+
+
+int i = 0;
+
+float Kp = 12;
+int32_t absolute_pos[6] ={0};
+int32_t fixed_pos[6] = {0};
+int32_t absolute_ref_tmp[6] = {0};
+
+
+
+//for GNSS
+uint8_t rt_data[144]={0};
+const char target[] = "$GNRMC";
+const char target_yaw[] = "$PTNL";
+char *start=NULL ;
+int comma_count=0;
+char *field_start[4];
+char *field_end[4];
+int field_index = 0;
+char latitude_str[20]={0};
+char *dot_pos=0;
+uint16_t TLatitude=0;
+uint32_t FLatitude=0;
+uint16_t TLongitude=0;
+uint32_t FLongitude=0;
+uint16_t TSOG=0;
+uint16_t FSOG=0;
+uint8_t TCOG=0;
+uint8_t FCOG=0;
+int8_t yawsign=0;
+uint16_t TYAW=0;
+uint16_t FYAW=0;
+uint8_t txdata[16];
+uint8_t offset=0;
+
+double cog;
+double sog;
+double latitude;
+double longitude;
+double yaw;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
